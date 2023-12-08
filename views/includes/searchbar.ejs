@@ -1,0 +1,11 @@
+<input id="searchbar" placeholder="Rechercher lieu, bar, ville..."> 
+    <% for (bar of bar) { %>
+        <div class="searchbar-results">
+            <img src="../img/<%= bar.logo %>"></img>
+            <a href="/bars/<%=bar.id%>" >
+                <h2><%= bar.name %></h2>
+                <h3><%= bar.adress %></h3>
+                <h3><%= bar.zipcode + " " + bar.city %></h3>
+            </a>
+        </div>
+    <% } %>

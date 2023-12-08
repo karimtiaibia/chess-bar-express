@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Bar</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://kit.fontawesome.com/9ca88f9061.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="chessbar-logo">
+                <a href="/"><img src="\img\logo.png" alt="Logo de Chess Bar" /></a>
+            </div>
+            <!--BURGER-MENU HERE WE GO -->
+            <nav>
+                <ul class="sidebar-menu">
+                    <li><a id="tournaments" href="/tournaments">Tournois à venir</a></li>
+                    <li><a id="rules" href="/rules">Règlement</a></li>
+                    <!-- Quand il y a une session active -->
+                    <% if (locals.session.connected) { %>
+                        <li><a id="logout" href="/account">Profil</a></li>
+                        
+                        <li><a id="logout" href="/logout">Déconnexion <%= " [" + locals.session.user.pseudo + "] " %></a></li>
+                    <% } %>
+                    <!-- Quand il n'y a pas de session active -->
+                    <% if (!locals.session.connected) { %>
+                        <li><a id="login" href="/login">Connexion</a></li>
+                        <li><a id="register" href="/register">S&apos;inscrire</a></li>
+                    <% } %>
+                </ul>
+            </nav>
+            <!-- END OF BURGER-MENU -->
+        </div>
+    </header>
+    <main>

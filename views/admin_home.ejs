@@ -1,0 +1,39 @@
+<%- include('./includes/header.ejs') %>
+
+<h1>Administration</h1>
+
+<section id="admin-controls">
+    <a href="/admin/tournament/add"><button>Ajouter un tournoi</button></a>
+</section>
+
+<section>
+    
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Lieu</th>
+                <th>Date du tournoi</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (const tournament of tournaments) { %>
+                <tr>
+                    <td>
+                        <img class="admin-tournament-miniature" src="/img/<%= tournament.logo %>" />
+                    </td>
+                    <td><%= tournament.name %></td>
+                    <td><%= (new Date(tournament.date)).toLocaleDateString('fr-FR') %></td>
+                    <td>
+                        <a href="/admin/tournament/<%= tournament.id %>/delete"><button>Supprimer</button></a>
+                        <a href="/admin/tournament/<%= tournament.id %>/edit"><button>Modifier</button></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    
+</section>
+
+<%- include('./includes/footer.ejs') %>

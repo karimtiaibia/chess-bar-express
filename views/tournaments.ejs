@@ -1,0 +1,35 @@
+<%- include('./includes/header.ejs') %>
+
+    <div class="next-tournaments">
+        <h2>Prochains Tournois</h2>
+        <label for="city-select"></label>
+        <select name="city-select" id="city-select">
+            <option value="">--Sélectionnez une ville--</option>
+            <option value="bordeaux">Bordeaux</option>
+            <option value="paris">Paris</option>
+            <option value="rennes">Rennes</option>
+        </select>
+        
+        <% for (tournament of tournament) { %>
+            
+            <section class="tournaments" data-city="<%= tournament.city %>">
+                <div>
+                    <img src="../img/<%= tournament.logo %>"></img>
+                </div>
+                <h2><%= tournament.name %> <%= " - " %> <%= tournament.city %></h2>
+                <h3><%= new Date(tournament.date).toLocaleDateString('fr-FR') %></h3>
+                <h4><%= tournament.description %></h4>
+                <% if (locals.session.connected) { %>
+                    <h4><%= tournament.nb_places_disponibles %> <%= " " %> <%= " places disponibles " %></h4>
+                    <input type="submit" class="tournament-registered" value="S'inscrire">
+                <% } else { %>
+                    <input type="submit" class="tournament-registered" value="S'inscrire" disabled>
+                    <h4>Vous devez vous connecter pour vous inscrire au tournoi.</h4>
+                <% } %>
+            </section>
+
+        <% } %>
+
+    </div>
+
+<%- include('./includes/footer.ejs') %>
