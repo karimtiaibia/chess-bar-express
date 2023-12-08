@@ -7,7 +7,6 @@
 * {
   box-sizing: border-box;
   font-family: "Marianne", "Arial", sans-serif;
-  margin: auto;
   padding: 0;
 }
 * a {
@@ -21,42 +20,40 @@
 }
 * body {
   line-height: 1.6;
+  background-color: whitesmoke;
   min-height: 100vh;
   margin: auto;
   position: relative;
 }
 
-/* SEARCHBAR */
 .searchbar-results {
-  width: 100%;
   display: none;
-  align-items: center;
   margin: 10px 0 10px 0;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
   border: black ridge 1px;
-  border-radius: 10px;
-}
-.searchbar-results img {
-  width: 15%;
 }
 .searchbar-results a {
   text-decoration: none;
   color: #333;
   padding: 0.5em;
+  display: flex;
 }
-.searchbar-results h2 {
+.searchbar-results a img {
+  width: 30%;
+  padding: 0.5em;
+}
+.searchbar-results a .searchbar-results-infos {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 10px;
+  flex-direction: column;
+}
+.searchbar-results a .searchbar-results-infos .searchbar-results-adress {
+  line-height: 0.5em;
 }
 .searchbar-results h3 {
   font-size: 18px;
   color: #666;
-  margin-bottom: 5px;
 }
-
-/* BURGER MENU 
-
 
 /* HEADER */
 header {
@@ -69,7 +66,8 @@ header {
   justify-content: space-around;
 }
 header .header-container .chessbar-logo a img {
-  width: 100%;
+  width: 90%;
+  margin: auto;
 }
 header a {
   justify-content: left;
@@ -94,21 +92,20 @@ header, footer {
 /* FOOTER */
 footer {
   background-color: #2c3e50;
-  display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  /* position: absolute; /* Add absolute positioning */
-  bottom: 0; /* Stick to the bottom of the viewport */
+  bottom: 0;
   width: 100%;
 }
 footer .contact-social {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-footer .contact-social .social .social-links {
-  display: flex;
   justify-content: space-around;
+}
+footer .contact-social .social {
+  display: flex;
+  flex-direction: column;
 }
 footer .contact-social .social .social-links a {
   color: white;
@@ -131,8 +128,6 @@ ul li {
 
 .card {
   max-width: 300px;
-  height: -moz-fit-content;
-  height: fit-content;
   flex-direction: column;
   padding: 1em;
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -151,7 +146,8 @@ ul li {
   display: flex;
 }
 .bar-details .bar-info .bar-logo {
-  width: 25%;
+  width: 50%;
+  size: auto;
 }
 .bar-details .bar-info .bar-container .info-container {
   text-align: center;
@@ -178,9 +174,6 @@ ul li {
 
 .tournaments div {
   display: flex;
-}
-.tournaments div img {
-  width: 5%;
 }
 
 table {
@@ -381,7 +374,6 @@ h1, h2, h3 {
   background: #fff;
   color: #333;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 .rules article h2 {
   margin-bottom: 10px;
@@ -390,7 +382,7 @@ h1, h2, h3 {
   color: #666;
 }
 .rules article:nth-child(even) {
-  background: #f4f4f4;
+  background: whitesmoke;
 }
 
 .register-name {

@@ -33,6 +33,7 @@ router.get('/bars/:id', barController.barDetails)
 router.get('/tournaments', tournamentController.tournamentsList)
 router.get('/tournaments/:id', tournamentController.tournamentDetails)
 
+
 router.get('/rules', barController.rules)
 
 router.get('/account', isAuthenticated, accountController.renderAccount)
