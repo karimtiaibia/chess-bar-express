@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 08 déc. 2023 à 13:53
+-- Généré le : mer. 20 déc. 2023 à 13:15
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.0.1
 
@@ -44,9 +44,7 @@ CREATE TABLE `bar` (
 
 INSERT INTO `bar` (`id`, `name`, `adress`, `zipcode`, `city`, `phone_number`, `register_date`, `logo`) VALUES
 (1, 'la tencha', 'quai st michel', 33000, 'bordeaux', '0951778669', '2023-11-29 16:47:03', 'tencha-logo.jpg'),
-(2, 'ambrosia', 'porte caillau', 33000, 'bordeaux', '0556012653', '2023-11-29 18:11:12', 'ambrosia-logo.png'),
-(3, 'le p\'tit québec', '93 rue Eugène Jacquet', 33000, 'bordeaux', '0556969057', '2023-12-08 13:10:02', ''),
-(4, 'le bar talençais', '3 rue à talence', 33140, 'talence', '0', '2023-11-21 15:10:13', '');
+(2, 'ambrosia', 'porte caillau', 33000, 'bordeaux', '0556012653', '2023-11-29 18:11:12', 'ambrosia-logo.png');
 
 -- --------------------------------------------------------
 
@@ -66,7 +64,6 @@ CREATE TABLE `ranking` (
 --
 
 INSERT INTO `ranking` (`id`, `score`, `id_user`, `id_tournament`) VALUES
-(2, 250, 15, 1),
 (3, 400, 16, 1);
 
 -- --------------------------------------------------------
@@ -91,11 +88,9 @@ CREATE TABLE `tournament` (
 --
 
 INSERT INTO `tournament` (`id`, `date`, `description`, `nb_places_disponibles`, `end_of_season`, `id_bar`, `id_user`, `id_rank`) VALUES
-(1, '2023-12-15', 'ceci est une description pour le tournoi n°1 à la tencha', 6, '2023-12-08 12:26:02.429976', 1, NULL, 0),
-(2, '2023-12-16', 'ceci est une description pour le tournoi à l\'ambrosia', 6, '2023-12-08 12:26:06.913921', 2, NULL, 0),
-(3, '2023-12-15', 'ceci est une description pour le tournoi au p\'tit québec', 6, '2023-12-08 12:26:14.754333', 3, NULL, 0),
-(4, '2023-12-15', 'ceci est une description pour le tournoi n°2 à la tencha', 6, '2023-12-08 12:26:16.524501', 1, NULL, 0),
-(5, '2023-12-22', 'ceci est une description pour le tournoi au bar talençais', 6, '2023-12-08 12:26:18.662877', 4, NULL, 0);
+(1, '2023-12-15', 'ceci est une description pour le tournoi n°1 à la tencha', 6, '2023-12-13 14:08:51.859284', 1, NULL, 0),
+(2, '2023-12-16', 'ceci est une description pour le tournoi à l\'ambrosia', 6, '2023-12-13 14:08:51.859284', 2, NULL, 0),
+(4, '2023-12-15', 'ceci est une description pour le tournoi n°2 à la tencha', 6, '2023-12-13 14:08:51.859284', 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -119,9 +114,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `pseudo`, `city`, `zipcode`, `admin`, `bar`) VALUES
-(15, 'zone@caca.com', '$2b$10$/eb22Ecq0GemUXIwBz42ve0B5KiswSffaCdtv3dDcg8yT0AtsAfiK', 'Zone', NULL, NULL, 1, NULL),
 (16, 'karim.tiaibia@gmail.com', '$2b$10$rBmE9HXecvK//8Ina.dbG.2vFejzky8bLFeGkNr2RahrJPK2rQJrq', 'Kaka', NULL, NULL, 1, NULL),
-(18, 'user@gmail.com', '$2b$10$s6avxmuoORK/jhoDkSl66eiDHV2fj7mXki/7CJ/M/tFO7UxkeOE6a', 'User', '', 0, 0, NULL);
+(19, 'test@test.com', '$2b$10$g8nNpp23nFmVZXZk2IUBquScSFxUslKp0NhlhqwWPZY/reQ/iS6Le', 'Test', NULL, NULL, 0, 0);
 
 --
 -- Index pour les tables déchargées
@@ -131,8 +125,7 @@ INSERT INTO `user` (`id`, `email`, `password`, `pseudo`, `city`, `zipcode`, `adm
 -- Index pour la table `bar`
 --
 ALTER TABLE `bar`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `ranking`
@@ -148,10 +141,10 @@ ALTER TABLE `ranking`
 --
 ALTER TABLE `tournament`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_bar` (`id_bar`),
   ADD KEY `id` (`id`),
   ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_rank` (`id_rank`);
+  ADD KEY `id_rank` (`id_rank`),
+  ADD KEY `id_bar` (`id_bar`);
 
 --
 -- Index pour la table `user`
@@ -170,7 +163,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `bar`
 --
 ALTER TABLE `bar`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `ranking`
@@ -182,7 +175,7 @@ ALTER TABLE `ranking`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Contraintes pour les tables déchargées
@@ -199,8 +192,8 @@ ALTER TABLE `ranking`
 -- Contraintes pour la table `tournament`
 --
 ALTER TABLE `tournament`
-  ADD CONSTRAINT `tournament_ibfk_2` FOREIGN KEY (`id_bar`) REFERENCES `bar` (`id`),
-  ADD CONSTRAINT `tournament_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tournament_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tournament_ibfk_4` FOREIGN KEY (`id_bar`) REFERENCES `bar` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
