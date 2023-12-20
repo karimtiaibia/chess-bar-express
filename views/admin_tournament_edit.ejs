@@ -9,18 +9,6 @@
     <label for="content">Contenu du tournoi</label>
     <textarea required id="content" name="content" placeholder="Contenu de votre article..."><%= tournament.content %></textarea>
     
-    <div id="edit-post-current-image">
-        <h3>Image actuelle</h3>
-        <% if (tournament.image) { %>
-            <img src="/img/<%= tournament.image %>" />
-        <% } else { %>
-            Pas d'image.
-        <% } %>
-    </div>
-    
-    <label for="image">Choisissez une image d'illustration</label>
-    <input type="file" name="image" id="image" accept="image/*" />
-    
     <button>Valider</button>
 </form>
 

@@ -5,11 +5,23 @@
 <form action="/admin/bar/add" method="POST" enctype="multipart/form-data">
       
     <label for="barname">Nom du bar : </label>
-    <input type="text" required id="barname" name="barname" placeholder="Nom du bar"></textarea>
+    <input type="text" required id="barname" name="barname" placeholder="Nom du bar">
     
-    <label for="image">Choisissez une image d'illustration</label>
-    <input type="file" name="image" id="image" accept="image/*" />
+    <label for="adress">Adresse : </label>
+    <input type="text" required id="adress" name="adress" placeholder="Adresse du bar">
+
+    <label for="zipcode">Code postal : </label>
+    <input type="text" required id="zipcode" name="zipcode" placeholder="Code postal">
+
+    <label for="city">Ville : </label>
+    <input type="text" required id="city" name="city" placeholder="Ville">
     
+    <label for="phone_number">N° de téléphone : </label>
+    <input type="tel" required id="phone_number" name="phone_number" placeholder="Numéro de téléphone" pattern="[0-9]{10}">
+
+    <label for="logo">Logo : </label>
+    <input type="file" id="logo" name="logo" placeholder="Logo du bar" accept="image/*">
+
     <button>Valider</button>
 </form>
 

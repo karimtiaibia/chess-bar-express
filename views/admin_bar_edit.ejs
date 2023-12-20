@@ -1,0 +1,34 @@
+<%- include('./includes/header.ejs') %>
+
+<h1>Mettre à jour le bar</h1>
+
+<form action="/admin/bar/<%= bar.id %>/edit" method="POST" enctype="multipart/form-data">
+    <label for="bar-name">Nom du bar</label>
+    <input required value="<%= bar.name %>" id="title" name="title" type="text" placeholder="Nom du bar..." disabled />
+    <p>Inscrit depuis le <%= (new Date(bar.register_date)).toLocaleDateString('fr-FR') %></p>
+
+    <label for="adress">Adresse</label>
+    <input required value="<%= bar.adress %>" id="title" name="title" type="text" placeholder="Adresse du bar..." />
+
+    <label for="zipcode">Code postal</label>
+    <input required value="<%= bar.zipcode %>" id="zipcode" name="zipcode" type="text" placeholder="Code postal..." />
+
+    <label for="city">Ville</label>
+    <input required value="<%= bar.city %>" id="city" name="city" placeholder="Ville..."></input>
+
+    <label for="phone-number">Numéro de téléphone</label>
+    <input required value="<%= bar.phone_number %>" id="title" name="title" type="text" placeholder="Numéro de téléphone..." />
+
+    <div id="edit-bar-current-image">
+        <h3>Image actuelle</h3>
+        <% if (bar.logo) { %>
+            <img src="../img/<%= bar.logo %>"></img>
+        <% } else { %>
+            Pas d'image.
+        <% } %>
+    </div>
+    
+    <button>Valider</button>
+</form>
+
+<%- include('./includes/footer.ejs') %>

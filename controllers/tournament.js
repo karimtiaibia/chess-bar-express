@@ -13,6 +13,7 @@ async function tournamentsList (req, res) {
     const tournaments = await db.query(`
         SELECT * FROM tournament
         JOIN bar ON tournament.id_bar = bar.id
+        ORDER BY bar.id, tournament.date
     `)
     if (tournaments.length === 0) {
         return res.status(404).json({
@@ -39,12 +40,19 @@ async function tournamentDetails (req, res) {
     }
     const tournamentId = req.params.id
     const tournaments = await db.query(`
+        SELECT * FROM tournament
+        WHERE id = ?
+        LIMIT 2
+`, [tournamentId])
+    /*
+    const tournaments = await db.query(`
         SELECT *, bar.name FROM tournament
         JOIN bar ON bar.id = tournament.id_bar
         WHERE id_bar = ?
         LIMIT 2
     `, [tournamentId])
-
+    */
+    console.log(tournaments)
     if (tournaments.length == 0) {
         return res.status(404).json({
             'error': 'No entity for this id'
@@ -71,7 +79,16 @@ async function tournamentDetails (req, res) {
     })
 }
 
-
+async function updateSlot (req, res) {
+    const tournamentId = req.params.id
+    const updatedTournaments = await db.query(`
+        UPDATE tournament
+        SET nb_places_disponibles = nb_places_disponibles - 1
+        WHERE tournament.id = ?
+    `, [tournamentId])
+    res.redirect('/tournaments')
+}
 
 module.exports.tournamentsList = tournamentsList
 module.exports.tournamentDetails = tournamentDetails
+module.exports.updateSlot = updateSlot

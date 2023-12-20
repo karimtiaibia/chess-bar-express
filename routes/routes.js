@@ -14,6 +14,7 @@ function isAuthenticated(req, res, next) {
     } else {
         return res.status(401).send('401 Unauthorized'); // L'utilisateur n'est pas authentifié, on retourne une erreur 401
     }
+    res.redirect('/')
 }
 
 // Middleware pour bloquer l'accès aux pages admin 
@@ -32,7 +33,7 @@ router.get('/bars/:id', barController.barDetails)
 
 router.get('/tournaments', tournamentController.tournamentsList)
 router.get('/tournaments/:id', tournamentController.tournamentDetails)
-
+router.post('/tournaments', tournamentController.updateSlot)
 
 router.get('/rules', barController.rules)
 
@@ -53,7 +54,12 @@ router.post('/register', userController.userRegister)
 router.get('/admin', isAdmin, adminController.home)
 router.get('/admin/tournament/add', isAdmin, adminController.tournamentAdd)
 router.get('/admin/tournament/:id/edit', isAdmin, adminController.tournamentEdit)
-// router.post('/admin/tournament/:id/edit', isAdmin, adminController.tournamentEditSubmit)
+
+router.get('/admin/bar/add', isAdmin, adminController.barAdd)
+router.post('/admin/bar/add', isAdmin, adminController.barAddSubmit)
+router.get('/admin/bar/:id/edit', isAdmin, adminController.barEdit)
+//router.post('/admin/bar/:id/edit', isAdmin, adminController.barEditSubmit)
+router.get('/admin/bar/:id/delete', isAdmin, adminController.barDelete)
 
 
 module.exports.router = router

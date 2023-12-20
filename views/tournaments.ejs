@@ -16,20 +16,20 @@
                 <div>
                     <img src="../img/<%= tournament.logo %>"></img>
                 </div>
-                <h2><%= tournament.name %> <%= " - " %> <%= tournament.city %></h2>
+                <h2><a href="/bars/<%=bar.id%>"><%= tournament.name %> <%= " - " %> <%= tournament.city %></a></h2>
                 <h3><%= new Date(tournament.date).toLocaleDateString('fr-FR') %></h3>
                 <h4><%= tournament.description %></h4>
                 <% if (locals.session.connected) { %>
                     <h4><%= tournament.nb_places_disponibles %> <%= " " %> <%= " places disponibles " %></h4>
-                    <input type="submit" class="tournament-registered" value="S'inscrire">
+                    <form action="/tournaments/<%=tournament.id%>">
+                        <input type="submit" class="tournament-registered buttoncheck" value="S'inscrire">
+                    </form>
                 <% } else { %>
-                    <input type="submit" class="tournament-registered" value="S'inscrire" disabled>
+                    <h4><%= tournament.nb_places_disponibles %> <%= " " %> <%= " places disponibles " %></h4>
                     <h4>Vous devez vous connecter pour vous inscrire au tournoi.</h4>
                 <% } %>
             </section>
-
         <% } %>
-
     </div>
 
 <%- include('./includes/footer.ejs') %>
