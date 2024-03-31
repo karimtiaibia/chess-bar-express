@@ -2,12 +2,29 @@
 
 <h1>Créer un nouveau tournoi</h1>
 
-<form action="/admin/tournament/add" method="POST" enctype="multipart/form-data">
+<form action="/admin/tournament/add" method="POST">
 
-    <label for="content">Contenu de l'article</label>
-    <textarea required id="content" name="content" placeholder="Contenu de votre article..."></textarea>
+    <label for="barSelected">Nom du bar : </label>
+    <select id="bar-select" name="barSelected" required >
+        <option value="">--Sélectionnez un bar--</option>
+        <% for (bar of locals.barData) { %>
+            <option value='<%= bar.id %>'><%= bar.name %> <%= '('%><%= bar.zipcode %> <%= bar.city %><%= ')' %></option>
+        <% } %>
+    </select>
     
-    <button>Valider</button>
+    <label for="tournamentDate">Date du tournoi : 
+    <input id="tournamentDate" type="date" name="tournamentDate" required />
+
+    <label for="tournamentStartTime">Heures de début du tournoi : </label>
+    <input id="tournamentStartTime" type="time" name="tournamentStartTime" min="13:00" max="23:55" value="" required />
+
+    <label for="tournamentEndTime">Heures de fin du tournoi : </label>
+    <input id="tournamentEndTime" type="time" name="tournamentEndTime"  min="13:00" max="23:55 value="" required />
+
+    <label for="tournamentDescription">Description (optionnel) : </label>
+    <textarea id="tournamentDescription" name="tournamentDescription" value=""></textarea>
+
+    <button type="submit">Valider</button>
 
 </form>
 

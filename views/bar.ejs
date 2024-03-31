@@ -1,59 +1,59 @@
-<%- include('./includes/header.ejs', {bar}) %>
+<%- include('./includes/header.ejs') %>
 <%- include('./includes/searchbar.ejs') %>
 
 <% for (bar of bar) { %>
-    <section class='bar-details'>
-        <aside class='bar-info'>
-            <img class='bar-logo' src="../img/<%= bar.logo %>"></img>
-            <div class="bar-container">
-                <div class="info-container">
-                    <h4><i class="fas fa-file-alt"></i> Inscrit depuis le <%= new Date(bar.register_date).toLocaleDateString('fr-FR') %></h4>
-                    <div class="adress">
-                        <h4><i class="fas fa-map"></i><%= bar.adress %></h4>
-                        <h4><%= bar.zipcode %> <%= " " %> <%= bar.city %></h4>
-                    </div>
-                    <h4><i class="fas fa-phone-alt"></i><%= bar.phone_number %></h4>
-                    <h4><i class="fas fa-globe-africa"></i><a href="https://latencha.fr/">Site web</a></h4>
-                    <h4><i class="fab fa-facebook-f"></i><a href="https://latencha.fr/">Page Facebook</a></h4>
-                    <h4><i class="fab fa-instagram"></i><a href="https://latencha.fr/">Page Instagram</a></h4>
+<section class='bar-details'>
+    <aside class='bar-info'>
+        <img class='bar-logo' src="../img/<%= bar.logo %>"></img>
+        <div class="bar-container">
+            <div class="info-container">
+                <h4><i class="fas fa-file-alt"></i> Inscrit depuis le <%= new Date(bar.register_date).toLocaleDateString('fr-FR') %></h4>
+                <div class="adress">
+                    <h4><i class="fas fa-map"></i><%= bar.address %></h4>
+                    <h4><%= bar.zipcode %> <%= " " %> <%= bar.city %></h4>
                 </div>
-            </div>
-        </aside>
-        
-        <div class="next-tournaments">
-            <h2>Prochains Tournois</h2>
-            <% for (tournament of tournament) { %>
-                <section class="tournaments">
-                    <div>
-                        <img src="../img/<%= tournament.logo %>"></img>
-                    </div>
-                    <h2><%= tournament.name %> <%= " - " %><%= tournament.city %></h2>
-                    <h3><%= new Date(tournament.date).toLocaleDateString('fr-FR') %></h3>
-                    <h4><%= tournament.description %></h4>
-                    <button>S&#39;inscrire</button>
-                </section>
-            <% } %>
-        </div>
-        
-        <section class="rankings">
-            <p class="remaining">Il reste ... jours avant la fin de la saison</p>
-            <table>
-                <tr>
-                    <th>Place</th>
-                    <th>Pseudo</th> 
-                    <th>Score</th>
-                </tr>
-                <% for (i = 0 ; i < ranking.length ; i++) { %>
-                <tr>
-                    <td><%= i + 1 %></td>
-                    <td><%= ranking[i].pseudo %></td> 
-                    <td><%= ranking[i].score %></td>
-                </tr>
+                <h4><i class="fas fa-phone-alt"></i><%= bar.phone_number %></h4>
+                <% if (bar.website || bar.sm_fb || bar.sm_inst) { %>
+                    <h4><i class="fas fa-globe-africa"></i><a href="<%= bar.website %>">Site web</a></h4>
+                    <h4><i class="fab fa-facebook-f"></i><a href="<%= bar.sm_fb %>">Page Facebook</a></h4>
+                    <h4><i class="fab fa-instagram"></i><a href="<%= bar.sm_inst %>">Page Instagram</a></h4>
                 <% } %>
-            </table>
+            </div>
+        </div>
+    </aside>
+    <p>Il reste <%= Math.ceil((bar.end_of_season.getTime() - new Date().getTime()) / 86400000) %> jours avant la fin de la saison.</p>
+    <div class="next-tournaments">
+        <h2>Prochains Tournois</h2>
+        <% for (tournament of tournament) { %>
+        <section class="tournaments">
+            <div>
+                <img src="../img/<%= tournament.logo %>"></img>
+            </div>
+            <h2><%= tournament.name %> <%= " - " %><%= tournament.city %></h2>
+            <h3><%= new Date(tournament.date).toLocaleDateString('fr-FR') %></h3>
+            <h4><%= tournament.description %></h4>
+            <button>S&#39;inscrire</button>
         </section>
+        <% } %>
+    </div>
 
+    <section class="rankings">
+        <table>
+            <tr>
+                <th>Place</th>
+                <th>Pseudo</th> 
+                <th>Score</th>
+            </tr>
+            <% for (i = 0 ; i < ranking.length ; i++) { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= ranking[i].pseudo %></td> 
+                <td><%= ranking[i].score %></td>
+            </tr>
+            <% } %>
+        </table>
     </section>
+</section>
 <% } %>
 
 <%- include('./includes/footer.ejs') %>

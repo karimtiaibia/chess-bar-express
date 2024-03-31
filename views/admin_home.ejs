@@ -5,6 +5,7 @@
 <section id="admin-controls">
     <a href="/admin/bar/add"><button>Ajouter un bar</button></a>
     <a href="/admin/tournament/add"><button>Ajouter un tournoi</button></a>
+    <a href="/admin/ranking/add"><button>Ajouter un score</button></a>
 </section>
 
 <section>
@@ -21,7 +22,7 @@
             <h2>Bars</h2>
             <% for (const bar of bars) { %>
                 <tr>
-                    <td><%= bar.name %> <%= ' ('%><%=bar.city %><%=') ' %></td>
+                    <td><%= bar.name %> <%= ' (' %><%= bar.city %> <%= ' - '%> <%= bar.zipcode %><%= ')' %></td>
                     <td><%= (new Date(bar.register_date)).toLocaleDateString('fr-FR') %></td>
                     <td>
                         <a href="/admin/bar/<%= bar.id %>/delete"><button>Supprimer</button></a>
@@ -40,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-            <h2>Tournois</h2>
+            <h2 id="tournaments-list">Tournois</h2>
             <% for (const tournament of tournaments) { %>
                 <tr>
                     <td><%= tournament.name %> <%= ' ('%><%=tournament.city %><%=') ' %></td>
@@ -53,7 +54,28 @@
             <% } %>
         </tbody>
     </table>
-    
+    <table>
+        <thead>
+            <tr>
+                <th>Lieu</th>
+                <th>Date du tournoi</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <h2 id="tournaments-list">Classements</h2>
+            <% for (const ranking of ranking) { %>
+                <tr>
+                    <td><%= tournament.name %> <%= ' ('%><%=tournament.city %><%=') ' %></td>
+                    <td><%= (new Date(tournament.date)).toLocaleDateString('fr-FR') %></td>
+                    <td>
+                        <a href="/admin/tournament/<%= tournament.id %>/delete"><button>Supprimer</button></a>
+                        <a href="/admin/tournament/<%= tournament.id %>/edit"><button>Modifier</button></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
 </section>
 
 <%- include('./includes/footer.ejs') %>

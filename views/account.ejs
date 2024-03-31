@@ -3,21 +3,26 @@
 <h2>Profil</h2>
 
 <form action="/account/update" method="POST" >
-    <label for="email">Email : </label>
-    <input required id="email" type="email" name="email" value="<%= userAccount.email %>" disabled/>
-    
-    <label for="password">Mot de passe : </label>
-    <input required id="password" type="password" name="password" placeholder ="***" disabled/>
     
     <label for="pseudo">Pseudo : </label>
-    <input required id="pseudo" type="pseudo" name="pseudo" value="<%= userAccount.pseudo %>" disabled>
-
-    <label for="zipcode">Code Postal : </label>
-    <input required id="zipcode" type="zipcode" name="zipcode" />
-
+    <input value="<%= userAccount.pseudo %>" id="pseudo" type="pseudo" name="pseudo" disabled />
+    
+    <label for="password">Mot de passe : </label>
+    <input id="password" type="password" name="password" placeholder ="***" disabled />
+    
+    <label for="email">Email : </label>
+    <input value="<%= userAccount.email %>" id="email" type="email" name="email" />
+        
     <label for="city">Ville : </label>
-    <input required id="city" type="city" name="city" />
+    <input value="<%= userAccount.city %>" id="city" type="text" name="city" />
+
     <button>Mettre à jour mon compte</button>
+    <% if (typeof message !== 'undefined' && message) { %>
+        <div class="alert alert-success">
+            <%= message %>
+        </div>
+    <% } %>
+    
 </form>
 
 <%- include('./includes/footer.ejs') %>

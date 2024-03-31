@@ -1,27 +1,27 @@
 <%- include('./includes/header.ejs') %>
+<%- include('./includes/searchbar.ejs') %>
 
     <div class="next-tournaments">
         <h2>Prochains Tournois</h2>
         <label for="city-select"></label>
-        <select name="city-select" id="city-select">
-            <option value="">--Sélectionnez une ville--</option>
-            <option value="bordeaux">Bordeaux</option>
-            <option value="paris">Paris</option>
-            <option value="rennes">Rennes</option>
+        <select aria-label="Sélécteur de villes" name="city-select" id="city-select">
+            <option selected value="">-- Sélectionnez une ville --</option>
+            <% for (city of city) { %>
+                <option value='<%= city.city %>'><%= city.city %></option>
+            <% } %>
         </select>
-        
+
         <% for (tournament of tournament) { %>
-            
             <section class="tournaments" data-city="<%= tournament.city %>">
                 <div>
                     <img src="../img/<%= tournament.logo %>"></img>
                 </div>
-                <h2><a href="/bars/<%=bar.id%>"><%= tournament.name %> <%= " - " %> <%= tournament.city %></a></h2>
+                <h2><a href="/bars/<%=tournament.id%>"><%= tournament.name %> <%= " - " %> <%= tournament.city %></a></h2>
                 <h3><%= new Date(tournament.date).toLocaleDateString('fr-FR') %></h3>
                 <h4><%= tournament.description %></h4>
                 <% if (locals.session.connected) { %>
                     <h4><%= tournament.nb_places_disponibles %> <%= " " %> <%= " places disponibles " %></h4>
-                    <form action="/tournaments/<%=tournament.id%>">
+                    <form action="/tournaments/<%=tournament.id%>" onsubmit="return confirm('Êtes-vous sûr de vouloir vous inscrire à ce tournoi ?');">
                         <input type="submit" class="tournament-registered buttoncheck" value="S'inscrire">
                     </form>
                 <% } else { %>
@@ -29,6 +29,7 @@
                     <h4>Vous devez vous connecter pour vous inscrire au tournoi.</h4>
                 <% } %>
             </section>
+
         <% } %>
     </div>
 

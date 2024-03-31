@@ -1,5 +1,5 @@
 <input id="searchbar" placeholder="Rechercher lieu, bar, ville..."> 
-    <% for (bar of bar) { %>
+    <% for (bar of locals.barData) { %>
         <div class="searchbar-results">
             <a href="/bars/<%=bar.id%>">
                 <img src="../img/<%=bar.logo%>"></img>

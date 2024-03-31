@@ -2,33 +2,46 @@
 
 <h1>Mettre à jour le bar</h1>
 
-<form action="/admin/bar/<%= bar.id %>/edit" method="POST" enctype="multipart/form-data">
-    <label for="bar-name">Nom du bar</label>
-    <input required value="<%= bar.name %>" id="title" name="title" type="text" placeholder="Nom du bar..." disabled />
+<form action="/admin/bar/<%= bar.id %>/edit" method="POST">
+
+    <label for="barName">Nom du bar</label>
+    <input required value="<%= bar.name %>" id="barName" name="barName" type="text" placeholder="Nom du bar" />
     <p>Inscrit depuis le <%= (new Date(bar.register_date)).toLocaleDateString('fr-FR') %></p>
 
-    <label for="adress">Adresse</label>
-    <input required value="<%= bar.adress %>" id="title" name="title" type="text" placeholder="Adresse du bar..." />
+    <label for="barAdress">Adresse</label>
+    <input required value="<%= bar.address %>" id="barAdress" name="barAdress" type="text" placeholder="Adresse du bar" />
 
     <label for="zipcode">Code postal</label>
-    <input required value="<%= bar.zipcode %>" id="zipcode" name="zipcode" type="text" placeholder="Code postal..." />
+    <input required value="<%= bar.zipcode %>" id="zipcode" name="zipcode" type="text" placeholder="Code postal" />
 
     <label for="city">Ville</label>
-    <input required value="<%= bar.city %>" id="city" name="city" placeholder="Ville..."></input>
+    <input required value="<%= bar.city %>" id="city" name="city" placeholder="Ville"></input>
 
-    <label for="phone-number">Numéro de téléphone</label>
-    <input required value="<%= bar.phone_number %>" id="title" name="title" type="text" placeholder="Numéro de téléphone..." />
+    <label for="phoneNumber">Numéro de téléphone</label>
+    <input required value="<%= bar.phone_number %>" id="phoneNumber" name="phoneNumber" type="text" placeholder="Numéro de téléphone" />
 
+    <label for="website">Site web : </label>
+    <input type="text" value="<%= bar.website %>" id="website" name="website" placeholder="Lien du site web">
+
+    <label for="instagram">Réseaux sociaux (Instagram) : </label>
+    <input type="text" value="<%= bar.sm_inst %>" id="instagram" name="instagram" placeholder="Lien de la page Instagram">
+
+    <label for="facebook">Réseaux sociaux (Facebook) : </label>
+    <input type="text" value="<%= bar.sm_fb %>" id="facebook" name="facebook" placeholder="Lien de la page Facebook">
+    
     <div id="edit-bar-current-image">
         <h3>Image actuelle</h3>
         <% if (bar.logo) { %>
             <img src="../img/<%= bar.logo %>"></img>
         <% } else { %>
             Pas d'image.
+            <label for="imageFile">Logo : </label>
+            <input type="file" id="logo" name="imageFile" placeholder="Logo du bar" accept="image/*">
         <% } %>
     </div>
     
-    <button>Valider</button>
+    <input type="submit" value="Mettre à jour le bar">
+
 </form>
 
 <%- include('./includes/footer.ejs') %>

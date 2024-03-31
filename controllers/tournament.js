@@ -20,9 +20,20 @@ async function tournamentsList (req, res) {
             'error': 'No entity for this id'
         })
     }
+    const city = await db.query(`
+        SELECT DISTINCT city FROM bar
+        ORDER BY city
+    `);
+    // S'il n'existe pas d'occurence de bars
+    if (bars.length === 0) {
+        return res.status(404).json({
+            'error': 'No entity for this id'
+        })
+    }
     res.render("tournaments.ejs", {
         bar:bars[0],
-        tournament:tournaments[0]
+        tournament:tournaments[0],
+        city:city[0]
     })
 }
 
@@ -32,7 +43,6 @@ async function tournamentDetails (req, res) {
         SELECT * FROM bar
         WHERE id = ?
     `, [barId])
-
     if (bars.length == 0) {
         return res.status(404).json({
             'error': 'No entity for this id'
@@ -43,16 +53,7 @@ async function tournamentDetails (req, res) {
         SELECT * FROM tournament
         WHERE id = ?
         LIMIT 2
-`, [tournamentId])
-    /*
-    const tournaments = await db.query(`
-        SELECT *, bar.name FROM tournament
-        JOIN bar ON bar.id = tournament.id_bar
-        WHERE id_bar = ?
-        LIMIT 2
     `, [tournamentId])
-    */
-    console.log(tournaments)
     if (tournaments.length == 0) {
         return res.status(404).json({
             'error': 'No entity for this id'
@@ -72,11 +73,17 @@ async function tournamentDetails (req, res) {
             'error': 'No entity for this id'
         })
     }
+    const city = await db.query(`
+        SELECT DISTINCT city FROM bar
+        ORDER BY city
+    `);
     res.render("tournaments.ejs", {
         bar:bars[0], 
         tournament:tournaments[0], 
-        ranking:rankings[0]
+        ranking:rankings[0],
+        city:city[0]
     })
+
 }
 
 async function updateSlot (req, res) {
@@ -86,7 +93,9 @@ async function updateSlot (req, res) {
         SET nb_places_disponibles = nb_places_disponibles - 1
         WHERE tournament.id = ?
     `, [tournamentId])
-    res.redirect('/tournaments')
+    res.render("tournaments.ejs", {
+        updatedTournament:updatedTournaments[0]
+    })
 }
 
 module.exports.tournamentsList = tournamentsList

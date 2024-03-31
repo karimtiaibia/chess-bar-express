@@ -52,11 +52,11 @@ async function barDetails (req, res) {
         })
     }
     const rankings = await db.query(`
-        SELECT ranking.score, user.pseudo FROM ranking
+        SELECT SUM(ranking.score) AS user_score, user.pseudo
+        FROM ranking
         JOIN user ON user.id = ranking.id_user
-        JOIN tournament ON tournament.id = ranking.id_tournament
-        JOIN bar ON bar.id = tournament.id_bar
-        WHERE bar.id = ?
+        WHERE id_bar = ?
+        GROUP BY ranking.score
         ORDER BY ranking.score DESC
         LIMIT 14
     `, [barId])
@@ -70,6 +70,8 @@ async function barDetails (req, res) {
         tournament:tournaments[0], 
         ranking:rankings[0]
     })
+    console.log(tournaments[0])
+    console.log(ranking[0])
 }
 
 async function rules (req, res) {

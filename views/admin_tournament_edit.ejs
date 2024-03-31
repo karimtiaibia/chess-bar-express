@@ -2,14 +2,29 @@
 
 <h1>Mettre à jour le tournoi</h1>
 
-<form action="/admin/tournament/<%= tournament.id %>/edit" method="POST" enctype="multipart/form-data">
-    <label for="title">Titre</label>
-    <input required value="<%= tournament.title %>" id="title" name="title" type="text" placeholder="Titre du tournoi..." />
+<form action="/admin/tournament/<%= tournament.id %>/edit" method="POST">
+
+    <label for="barName">Nom du bar</label>
+    <input required value="<%= tournament.name %>" id="barName" name="barName" type="text" disabled />
     
-    <label for="content">Contenu du tournoi</label>
-    <textarea required id="content" name="content" placeholder="Contenu de votre article..."><%= tournament.content %></textarea>
+    <label for="tournamentDate">Date du tournoi : 
+    <input id="tournamentDate" type="date" name="tournamentDate" required />
+
+    <label for="tournamentStartTime">Heures de début du tournoi : </label>
+    <input id="tournamentStartTime" type="time" name="tournamentStartTime" min="13:00" max="23:55" required />
+
+    <label for="tournamentEndTime">Heures de fin du tournoi : </label>
+    <input id="tournamentEndTime" type="time" name="tournamentEndTime" min="13:00" max="23:55" required />
+
+    <label for="tournamentDescription">Description (optionnel) : </label>
+    <textarea value='<%= tournament.description %>' id="tournamentDescription" name="tournamentDescription"></textarea>
     
-    <button>Valider</button>
+    <input type="submit" value="Mettre à jour le tournoi">
+    <% if (typeof message !== 'undefined' && message) { %>
+        <div class="alert alert-success">
+            <%= message %>
+        </div>
+    <% } %>
 </form>
 
 <%- include('./includes/footer.ejs') %>

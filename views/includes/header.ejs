@@ -18,13 +18,17 @@
                     <li><a id="tournaments" href="/tournaments">Tournois à venir</a></li>
                     <li><a id="rules" href="/rules">Règlement</a></li>
                     <% if (locals.session.connected) { %>
-                        <li><a id="logout" href="/account">Profil</a></li>
+                        <li><a id="account" href="/account">Profil</a></li>
                         <li><a id="logout" href="/logout">Déconnexion <%= " [" + locals.session.user.pseudo + "] " %></a></li>
                     <% } %>
                     <% if (!locals.session.connected) { %>
                         <li><a id="login" href="/login">Connexion</a></li>
                         <li><a id="register" href="/register">S&apos;inscrire</a></li>
                     <% } %>
+                    <% if (locals.session.user && locals.session.user.admin) { %>
+                        <li><a id="admin" href="/admin">Administration</a></li>
+                    <% } %>
+                    
                 </div>
                 <a href="javascript:void(0);" class="icon" onclick="burgerDisplay()">
                     <i class="fa fa-bars"></i>
