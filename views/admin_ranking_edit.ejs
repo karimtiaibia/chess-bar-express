@@ -1,0 +1,32 @@
+<%- include('./includes/header.ejs') %>
+
+<h1>Mise à jour des scores</h1>
+
+<form action="/admin/ranking/edit" method="POST">
+
+    <label for="barSelected">Nom du bar : </label>
+    <select id="bar-select" name="barSelected" required >
+        <option value="">--Sélectionnez un bar--</option>
+        <% for (bar of locals.barData) { %>
+            <option value='<%= bar.id %>'><%= bar.name %> <%= '('%><%= bar.zipcode %> <%= bar.city %><%= ')' %></option>
+        <% } %>
+    </select>
+    
+    <section class="rankings" id="admin-ranking">
+        <table>
+            <tr>
+                <th>Place</th>
+                <th>Pseudo</th> 
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td> 
+                <td></td>
+            </tr>
+        </table>
+    </section>
+
+</form>
+
+<%- include('./includes/footer.ejs') %>

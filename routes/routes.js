@@ -70,7 +70,7 @@ router.post('/admin/bar/:id/edit', isAdmin, adminController.barEditSubmit)
 router.get('/admin/bar/:id/delete', isAdmin, adminController.barDelete)
 
 // Ajout de scores
-router.get('/admin/ranking/add', isAdmin, adminController.rankingAdd)
-router.post('/admin/ranking/add', isAdmin, adminController.rankingAddSubmit)
+router.get('/admin/ranking/edit', isAdmin, adminController.rankingEdit)
+router.post('/admin/ranking/edit', isAdmin, adminController.rankingEditSubmit)
 
 module.exports.router = router

@@ -227,11 +227,21 @@ async function tournamentDelete (req, res) {
     res.redirect('/admin')
 }
 
-async function rankingAdd (req, res) {
-    res.render('admin_ranking_add.ejs')
+async function rankingEdit (req, res) {
+    const rankingId = req.params.id
+    let [ranking] = await db.query(`
+        SELECT * FROM ranking 
+        JOIN user ON user.id = ranking.id_user
+        JOIN bar ON bar.id = ranking.id_bar
+        WHERE bar.id = ?
+    `, [rankingId])
+    
+    res.render('admin_ranking_edit.ejs', {
+        ranking: ranking[0],
+    })
 }
 
-async function rankingAddSubmit (req, res) {
+async function rankingEditSubmit (req, res) {
     res.render('admin_ranking_add.ejs')
 }
 
@@ -249,5 +259,5 @@ module.exports.tournamentEdit = tournamentEdit
 module.exports.tournamentEditSubmit = tournamentEditSubmit
 module.exports.tournamentDelete = tournamentDelete
 // RANKING
-module.exports.rankingAdd = rankingAdd
-module.exports.rankingAddSubmit = rankingAddSubmit
+module.exports.rankingEdit = rankingEdit
+module.exports.rankingEditSubmit = rankingEditSubmit

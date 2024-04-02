@@ -52,7 +52,7 @@ async function barDetails (req, res) {
         })
     }
     const rankings = await db.query(`
-        SELECT SUM(ranking.score) AS user_score, user.pseudo
+        SELECT SUM(ranking.score) AS user_score
         FROM ranking
         JOIN user ON user.id = ranking.id_user
         WHERE id_bar = ?
@@ -71,7 +71,7 @@ async function barDetails (req, res) {
         ranking:rankings[0]
     })
     console.log(tournaments[0])
-    console.log(ranking[0])
+    // console.log(ranking[0])
 }
 
 async function rules (req, res) {
