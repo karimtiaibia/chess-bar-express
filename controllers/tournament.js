@@ -83,7 +83,6 @@ async function tournamentDetails (req, res) {
         ranking:rankings[0],
         city:city[0]
     })
-
 }
 
 async function updateSlot (req, res) {

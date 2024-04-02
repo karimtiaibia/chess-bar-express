@@ -19,10 +19,6 @@ app.use(async(req, res, next) => {
         ORDER BY city
     `)
     res.locals.barData = getBar
-    /* let [getRank] = await db.query(`
-        SELECT * FROM ranking
-    `)
-    res.locals.rankData = getRank */
     next()
 });
 
