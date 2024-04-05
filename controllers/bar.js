@@ -70,8 +70,6 @@ async function barDetails (req, res) {
         tournament:tournaments[0], 
         ranking:rankings[0]
     })
-    console.log(tournaments[0])
-    // console.log(ranking[0])
 }
 
 async function rules (req, res) {

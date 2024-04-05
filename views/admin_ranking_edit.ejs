@@ -2,7 +2,7 @@
 
 <h1>Mise à jour des scores</h1>
 
-<form id="rankingForm" action="/admin/ranking/edit" method="POST">
+<form id="rankingForm" method="GET">
 
     <label for="barSelected">Nom du bar : </label>
     <select id="admin-bar-select" name="barSelected" required onchange="handleSelectedBar()">
@@ -18,14 +18,18 @@
                 <th>Place</th>
                 <th>Pseudo</th> 
                 <th>Score</th>
+                <th>Action</th>
             </tr>
+            <% for (i = 0 ; i < ranking.length ; i++) { %>
             <tr>
-                <% for (i = 0 ; i < ranking.length ; i++) { %>
-                    <td><% i + 1 %></td>
-                    <td><%= ranking[i].pseudo %></td> 
-                    <td><%= ranking[i].score %></td>
-                <% } %>
+                <td><%= i + 1 %></td>
+                <td><%= ranking[i].pseudo %></td> 
+                <td><%= ranking[i].score %></td>
+                <td>
+                    <a href="/admin/ranking/bar/<%= ranking[i].id_bar %>/<%= ranking[i].id_user %>/edit">Modifier</a>
+                </td>
             </tr>
+            <% } %>
         </table>
     </section>
 
@@ -33,18 +37,18 @@
 
 <script>
     const barSelected = document.getElementById("admin-bar-select");
+    
     function handleSelectedBar() {
         const barId = event.target.value
-        window.location.pathname = `/admin/ranking/bar/${barId}/edit`
+        window.location.pathname = `/admin/ranking/bar/${barId}`
     }
 
     function selectedValue() {
         if (window.location.pathname !== "/admin/ranking/edit"){
             const selectedId = window.location.pathname.split("/")[4]
             document.addEventListener('DOMContentLoaded', (event) => {
-                if(barSelected && selectedId) {
+                if (barSelected && selectedId) {
                     barSelected.value = selectedId;
-                    // barSelected.dispatchEvent(new Event('change'));
                 }
             });
         }

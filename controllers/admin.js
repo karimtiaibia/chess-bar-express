@@ -229,18 +229,18 @@ async function tournamentDelete (req, res) {
 
 async function rankingEdit (req, res) {
     const barId = req.params.id
-    let [ranking] = await db.query(`
-        SELECT user.pseudo, SUM(ranking.score) AS score FROM ranking
+    let [rankings] = await db.query(`
+        SELECT user.pseudo AS pseudo, SUM(ranking.score) AS score, id_bar, id_user FROM ranking
         JOIN user ON user.id = ranking.id_user
         JOIN bar ON bar.id = ranking.id_bar
         WHERE bar.id = ?
-        GROUP BY user.pseudo
+        GROUP BY pseudo
         ORDER BY score DESC
     `, [barId])
     res.render('admin_ranking_edit.ejs', {
-        ranking: ranking[0],
+        ranking: rankings,
     })
-    console.log(ranking)
+    console.log(rankings)
 }
 
 async function rankingEditSubmit (req, res) {
