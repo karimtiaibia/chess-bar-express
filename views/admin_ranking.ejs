@@ -1,0 +1,59 @@
+<%- include('./includes/header.ejs') %>
+
+<h1>Mise à jour des scores</h1>
+
+<form id="rankingForm" method="GET">
+
+    <label for="barSelected">Nom du bar : </label>
+    <select id="admin-bar-select" name="barSelected" required onchange="handleSelectedBar()">
+        <option value="">--Sélectionnez un bar--</option>
+        <% for (bar of locals.barData) { %>
+            <option value='<%= bar.id %>'><%= bar.name %> <%= '('%><%= bar.zipcode %> <%= bar.city %><%= ')' %></option>
+        <% } %>
+    </select>
+    
+    <section class="rankings" id="admin-ranking">
+        <table>
+            <tr>
+                <th>Place</th>
+                <th>Pseudo</th> 
+                <th>Score</th>
+                <th>Action</th>
+            </tr>
+            <% for (i = 0 ; i < ranking.length ; i++) { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= ranking[i].pseudo %></td> 
+                <td><%= ranking[i].score %></td>
+                <td>
+                    <a href="/admin/ranking/bar/<%= ranking[i].id_bar %>/<%= ranking[i].id_user %>/edit" onclick="handleSelectedBar()">Modifier</a>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+    </section>
+
+</form>
+
+<script>
+    const barSelected = document.getElementById("admin-bar-select");
+    
+    function handleSelectedBar() {
+        const barId = event.target.value
+        window.location.pathname = `/admin/ranking/bar/${barId}`
+    }
+
+    function selectedValue() {
+        if (window.location.pathname !== "/admin/ranking/edit"){
+            const selectedId = window.location.pathname.split("/")[4]
+            document.addEventListener('DOMContentLoaded', (event) => {
+                if (barSelected && selectedId) {
+                    barSelected.value = selectedId;
+                }
+            });
+        }
+    }
+    selectedValue()
+</script>
+
+<%- include('./includes/footer.ejs') %>

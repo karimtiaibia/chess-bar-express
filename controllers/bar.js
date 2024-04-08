@@ -52,12 +52,12 @@ async function barDetails (req, res) {
         })
     }
     const rankings = await db.query(`
-        SELECT SUM(ranking.score) AS user_score
-        FROM ranking
+        SELECT user.pseudo AS pseudo, SUM(ranking.score) AS score, id_bar, id_user FROM ranking
         JOIN user ON user.id = ranking.id_user
-        WHERE id_bar = ?
-        GROUP BY ranking.score
-        ORDER BY ranking.score DESC
+        JOIN bar ON bar.id = ranking.id_bar
+        WHERE bar.id = ?
+        GROUP BY pseudo
+        ORDER BY score DESC
         LIMIT 14
     `, [barId])
     if (rankings.length === 0) {
