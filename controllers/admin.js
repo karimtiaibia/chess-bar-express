@@ -229,7 +229,7 @@ async function tournamentDelete (req, res) {
 
 async function rankingEdit (req, res) {
     const barId = req.params.id
-    let [rankings] = await db.query(`
+    let [barRanking] = await db.query(`
         SELECT user.pseudo AS pseudo, ranking.score AS score, id_bar, id_user FROM ranking
         JOIN user ON user.id = ranking.id_user
         JOIN bar ON bar.id = ranking.id_bar
@@ -238,50 +238,38 @@ async function rankingEdit (req, res) {
         ORDER BY score DESC
     `, [barId])
     res.render('admin_ranking.ejs', {
-        ranking: rankings,
+        barRanking: barRanking,
     })
 }
 
 async function rankingEditSubmit (req, res) {
     const userId = req.params.id
-    let [rankings] = await db.query(`
-        SELECT pseudo, score, id_bar, id_user FROM ranking
+    let [userRanking] = await db.query(`
+        SELECT user.pseudo AS pseudo, ranking.score AS score, id_bar, id_user FROM ranking
         JOIN user ON user.id = ranking.id_user
         JOIN bar ON bar.id = ranking.id_bar
-        WHERE user.id = ?
-        GROUP BY pseudo, score, id_bar, id_user
-        ORDER BY score DESC
+        WHERE id_user = ?
     `, [userId])
     res.render('admin_ranking_edit.ejs', {
-        userRanking: rankings[0],
+        userRanking: userRanking[0],
     })
-    console.log(rankings)
+    console.log(userRanking)
     
     const userScore = req.body.userScore
-    /*await db.query(`
-        UPDATE ranking 
-        SET score = ?
-        WHERE id_user = ?
-    `, [userScore, userId])
-    res.render('admin_ranking_edit.ejs', {
-        message: req.session.message,
-        ranking: rankings,
-    })*/
-    /*const userScore = req.body.userScore
-    try {
+    /*try {
         await db.query(`
             UPDATE ranking 
             SET score = ?
             WHERE id_user = ?
         `, [userScore, userId])
         req.session.message = 'Le tournoi a été mis à jour avec succès.'
+        
     } catch (err) {
         req.session.message = 'Une erreur est survenue lors de la mise à jour du tournoi.'
         console.error(err)
-        res.render('admin_ranking_edit.ejs', {
-            message: req.session.message,
-        })
-        res.redirect('/admin/ranking/bar/:id');
+        res.render('admin_ranking_edit.ejs', { 
+            message: req.session.message
+        });
     }*/
 }
 

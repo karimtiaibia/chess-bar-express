@@ -20,13 +20,13 @@
                 <th>Score</th>
                 <th>Action</th>
             </tr>
-            <% for (i = 0 ; i < ranking.length ; i++) { %>
+            <% for (i = 0 ; i < barRanking.length ; i++) { %>
             <tr>
                 <td><%= i + 1 %></td>
-                <td><%= ranking[i].pseudo %></td> 
-                <td><%= ranking[i].score %></td>
+                <td><%= barRanking[i].pseudo %></td> 
+                <td><%= barRanking[i].score %></td>
                 <td>
-                    <a href="/admin/ranking/bar/<%= ranking[i].id_bar %>/<%= ranking[i].id_user %>/edit" onclick="handleSelectedBar()">Modifier</a>
+                    <a href="/admin/ranking/bar/<%= barRanking[i].id_bar %>/<%= barRanking[i].id_user %>/edit">Modifier</a>
                 </td>
             </tr>
             <% } %>

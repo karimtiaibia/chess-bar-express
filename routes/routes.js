@@ -72,6 +72,7 @@ router.get('/admin/bar/:id/delete', isAdmin, adminController.barDelete)
 router.get('/admin/ranking', isAdmin, adminController.rankingEdit)
 router.get('/admin/ranking/edit', isAdmin, adminController.rankingEdit)
 router.get('/admin/ranking/bar/:id', isAdmin, adminController.rankingEdit)
+router.post('/admin/ranking/bar/:id', isAdmin, adminController.rankingEditSubmit)
 router.get('/admin/ranking/bar/:id/:id/edit', isAdmin, adminController.rankingEditSubmit)
 router.post('/admin/ranking/bar/:id/:id/edit', isAdmin, adminController.rankingEditSubmit)
 
