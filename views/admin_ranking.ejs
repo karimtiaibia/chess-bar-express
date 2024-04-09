@@ -26,7 +26,7 @@
                 <td><%= barRanking[i].pseudo %></td> 
                 <td><%= barRanking[i].score %></td>
                 <td>
-                    <a href="/admin/ranking/bar/<%= barRanking[i].id_bar %>/<%= barRanking[i].id_user %>/edit">Modifier</a>
+                    <a href="/admin/ranking/bar/<%= barRanking[i].id_bar %>/<%= barRanking[i].id_user %>/">Modifier</a>
                 </td>
             </tr>
             <% } %>
@@ -34,7 +34,6 @@
     </section>
 
 </form>
-
 <script>
     const barSelected = document.getElementById("admin-bar-select");
     

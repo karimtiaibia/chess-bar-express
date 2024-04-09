@@ -16,7 +16,6 @@ async function home (req, res) {
         bars: bars,
     })
 }
-
 // BARS
 async function barAdd (req, res) {
     res.render('admin_bar_add.ejs')
@@ -137,7 +136,7 @@ async function barDelete (req, res) {
     `, [barId])
     res.redirect('/admin')
 }
-
+// TOURNOIS
 async function tournamentAdd (req, res) {
     res.render('admin_tournament_add.ejs')
 }
@@ -209,7 +208,7 @@ async function tournamentEditSubmit (req, res) {
             tournament: tournaments[0]
         });
     } catch (err) {
-        req.session.message = 'Une erreur est survenue lors de la mise à jour du tournoi.'
+        req.session.message = 'Une erreur est survenue lors de la mise à jour du score.'
         console.error(err)
         res.render('admin_tournament_edit.ejs', { 
             message: req.session.message
@@ -226,7 +225,7 @@ async function tournamentDelete (req, res) {
     `, [tournamentId])
     res.redirect('/admin')
 }
-
+// CLASSEMENTS
 async function rankingEdit (req, res) {
     const barId = req.params.id
     let [barRanking] = await db.query(`
@@ -240,37 +239,59 @@ async function rankingEdit (req, res) {
     res.render('admin_ranking.ejs', {
         barRanking: barRanking,
     })
+    console.log(barRanking)
 }
 
 async function rankingEditSubmit (req, res) {
+    const barId = req.params.id
     const userId = req.params.id
+    const userScore = req.body.userScore
+    // Récupérer les scores du bar après la mise à jour
+    let [barRanking] = await db.query(`
+        SELECT user.pseudo AS pseudo, ranking.score AS score, id_bar, id_user FROM ranking
+        JOIN user ON user.id = ranking.id_user
+        JOIN bar ON bar.id = ranking.id_bar
+        WHERE bar.id = ?
+        GROUP BY pseudo, score
+        ORDER BY score DESC
+    `, [barId])
     let [userRanking] = await db.query(`
         SELECT user.pseudo AS pseudo, ranking.score AS score, id_bar, id_user FROM ranking
         JOIN user ON user.id = ranking.id_user
         JOIN bar ON bar.id = ranking.id_bar
         WHERE id_user = ?
+        GROUP BY pseudo, score, id_bar
+        ORDER BY score DESC
     `, [userId])
-    res.render('admin_ranking_edit.ejs', {
-        userRanking: userRanking[0],
-    })
-    console.log(userRanking)
-    
-    const userScore = req.body.userScore
-    /*try {
+    res.render('admin_ranking_edit.ejs', { 
+        message: req.session.message,
+        barRanking: barRanking[0],
+        userRanking: userRanking[0]
+    });
+
+    try {
         await db.query(`
             UPDATE ranking 
             SET score = ?
             WHERE id_user = ?
         `, [userScore, userId])
-        req.session.message = 'Le tournoi a été mis à jour avec succès.'
-        
-    } catch (err) {
-        req.session.message = 'Une erreur est survenue lors de la mise à jour du tournoi.'
-        console.error(err)
+        req.session.message = 'Le score a été mis à jour avec succès.'
         res.render('admin_ranking_edit.ejs', { 
             message: req.session.message
         });
-    }*/
+        // Récupérer les scores du bar après la mise à jour
+        let [userRanking] = await db.query(`
+            SELECT * FROM ranking
+            WHERE id_user = ?
+        `, [userId])
+        res.render('admin_ranking_edit.ejs', { 
+            message: req.session.message,
+            userRanking: userRanking
+        });
+    } catch (err) {
+        req.session.message = 'Une erreur est survenue lors de la mise à jour du score.'
+        console.error(err)
+    }
 }
 
 module.exports.home = home
