@@ -31,15 +31,16 @@ router.get('/', homeController.barsList)
 // BARS CONTROLLER
 router.get('/bars', barController.barsList)
 router.get('/bars/:id', barController.barDetails)
+router.get('/bars/:id/:id/:id/registered', isAuthenticated, barController.barDetails)
+router.post('/bars/:id/:id/:id/registered', isAuthenticated, barController.updateSlot)
 // TOURNAMENTS CONTROLLER
 router.get('/tournaments', tournamentController.tournamentsList)
 router.get('/tournaments/:id', tournamentController.tournamentDetails)
-router.post('/tournaments', tournamentController.updateSlot)
+
 // RULES CONTROLLER
 router.get('/rules', barController.rules)
 // ACCOUNT CONTROLLER
 router.get('/account', isAuthenticated, accountController.userAccount)
-// router.get('/account/update', isAuthenticated, accountController.userAccount)
 router.post('/account/update', isAuthenticated, accountController.renderAccount)
 // LOGIN/OUT CONTROLLER
 router.get('/login', userController.login)
@@ -73,7 +74,4 @@ router.get('/admin/ranking', isAdmin, adminController.rankingEdit)
 router.get('/admin/ranking/bar/:id', isAdmin, adminController.rankingEdit)
 router.get('/admin/ranking/bar/:id/:id/', isAdmin, adminController.rankingEditSubmit)
 router.post('/admin/ranking/bar/:id/:id/', isAdmin, adminController.rankingEditSubmit)
-router.get('/admin/ranking/bar/:id/:id/edit', isAdmin, adminController.rankingEditSubmit)
-router.post('/admin/ranking/bar/:id/:id/edit', isAdmin, adminController.rankingEditSubmit)
-
 module.exports.router = router

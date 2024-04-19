@@ -2,7 +2,7 @@
 
 <h1>Mise à jour des scores</h1>
 
-<form id="rankingForm" action="/admin/ranking/bar/<%= userRanking.id_bar %>/<%= userRanking.id_user %>/edit" method="POST">
+<form id="rankingForm" action="/admin/ranking/bar/<%= userRanking.id_bar %>/<%= userRanking.id_user %>/" method="POST">
 
     <label for="barSelected">Nom du bar : </label>
     <select id="admin-bar-select" name="barSelected" required onchange="handleSelectedBar()">
@@ -23,7 +23,7 @@
                 <td><%= userRanking.pseudo %></td>
                 <td>
                     <label for="userScore">Score : 
-                    <input id="userScore" type="number" name="userScore" required />
+                    <input id="userScore" type="text" name="userScore" required value="<%= session.message %>"/>
                     <input type="submit" value="Mettre à jour le score">
                 <td>
                     <a href="/admin/ranking/bar/<%= userRanking.id_bar %>/">Retour</a>
@@ -31,7 +31,6 @@
             </tr>
         </table>
     </section>
-    
 </form>
 <script>
     const barSelected = document.getElementById("admin-bar-select");

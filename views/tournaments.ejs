@@ -19,17 +19,7 @@
                 <h2><a href="/bars/<%=tournament.id%>"><%= tournament.name %> <%= " - " %> <%= tournament.city %></a></h2>
                 <h3><%= new Date(tournament.date).toLocaleDateString('fr-FR') %></h3>
                 <h4><%= tournament.description %></h4>
-                <% if (locals.session.connected) { %>
-                    <h4><%= tournament.nb_places_disponibles %> <%= " " %> <%= " places disponibles " %></h4>
-                    <form action="/tournaments/<%=tournament.id%>" onsubmit="return confirm('Êtes-vous sûr de vouloir vous inscrire à ce tournoi ?');">
-                        <input type="submit" class="tournament-registered buttoncheck" value="S'inscrire">
-                    </form>
-                <% } else { %>
-                    <h4><%= tournament.nb_places_disponibles %> <%= " " %> <%= " places disponibles " %></h4>
-                    <h4>Vous devez vous connecter pour vous inscrire au tournoi.</h4>
-                <% } %>
             </section>
-
         <% } %>
     </div>
 

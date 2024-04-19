@@ -239,7 +239,6 @@ async function rankingEdit (req, res) {
     res.render('admin_ranking.ejs', {
         barRanking: barRanking,
     })
-    console.log(barRanking)
 }
 
 async function rankingEditSubmit (req, res) {
@@ -263,28 +262,25 @@ async function rankingEditSubmit (req, res) {
         GROUP BY pseudo, score, id_bar
         ORDER BY score DESC
     `, [userId])
-    res.render('admin_ranking_edit.ejs', { 
-        message: req.session.message,
+    res.render('admin_ranking_edit.ejs', {
         barRanking: barRanking[0],
         userRanking: userRanking[0]
     });
 
     try {
+        //req.session.message = ""
         await db.query(`
             UPDATE ranking 
             SET score = ?
             WHERE id_user = ?
         `, [userScore, userId])
-        req.session.message = 'Le score a été mis à jour avec succès.'
-        res.render('admin_ranking_edit.ejs', { 
-            message: req.session.message
-        });
+        req.session.message = "Le score a été mis à jour."
         // Récupérer les scores du bar après la mise à jour
         let [userRanking] = await db.query(`
             SELECT * FROM ranking
             WHERE id_user = ?
         `, [userId])
-        res.render('admin_ranking_edit.ejs', { 
+        res.render('admin_ranking_edit.ejs', {
             message: req.session.message,
             userRanking: userRanking
         });

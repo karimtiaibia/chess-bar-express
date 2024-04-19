@@ -32,8 +32,6 @@ async function userRegister (req, res) {
     }
     return res.redirect("/login")
 }
-
-
 async function userLogin (req, res) {
     const pseudo = req.body.pseudo
     const password = req.body.password
@@ -59,7 +57,6 @@ async function userLogin (req, res) {
     req.session.error = "Identifiants invalides !"
     return res.redirect('/login')
 }
-
 async function renderRegister (req, res) {
     return res.render("register.ejs")
 }

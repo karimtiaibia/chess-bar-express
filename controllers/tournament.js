@@ -62,8 +62,7 @@ async function tournamentDetails (req, res) {
     const rankings = await db.query(`
         SELECT ranking.score, user.pseudo FROM ranking
         JOIN user ON user.id = ranking.id_user
-        JOIN tournament ON tournament.id = ranking.id_tournament
-        JOIN bar ON bar.id = tournament.id_bar
+        JOIN bar ON bar.id = ranking.id_bar
         WHERE bar.id = ?
         ORDER BY ranking.score DESC
         LIMIT 14
@@ -85,18 +84,5 @@ async function tournamentDetails (req, res) {
     })
 }
 
-async function updateSlot (req, res) {
-    const tournamentId = req.params.id
-    const updatedTournaments = await db.query(`
-        UPDATE tournament
-        SET nb_places_disponibles = nb_places_disponibles - 1
-        WHERE tournament.id = ?
-    `, [tournamentId])
-    res.render("tournaments.ejs", {
-        updatedTournament:updatedTournaments[0]
-    })
-}
-
 module.exports.tournamentsList = tournamentsList
 module.exports.tournamentDetails = tournamentDetails
-module.exports.updateSlot = updateSlot
